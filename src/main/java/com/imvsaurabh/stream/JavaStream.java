@@ -2,8 +2,12 @@ package com.imvsaurabh.stream;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static java.util.Collections.frequency;
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.toSet;
 
 /**
  * @author : saurabh
@@ -21,7 +25,7 @@ public class JavaStream {
 
 //        Find duplicate numbers from the list [Sol 1]
         List<Integer> duplicateNums1 = randomNums.stream()
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .collect(Collectors.groupingBy(identity(), counting()))
                 .entrySet().stream()
                 .filter(entry -> entry.getValue() > 1)
                 .map(Map.Entry::getKey).toList();
@@ -29,8 +33,8 @@ public class JavaStream {
 
 //        Find duplicate numbers from the list [Sol 2]
         Set<Integer> duplicateNums2 = randomNums.stream()
-                .filter(num -> Collections.frequency(randomNums, num) > 1)
-                .collect(Collectors.toSet());
+                .filter(num -> frequency(randomNums, num) > 1)
+                .collect(toSet());
         System.out.println("Duplicate Number List : " + duplicateNums2);
 
 //        Find unique numbers using stream
